@@ -1,0 +1,1 @@
+{"name":"questlearn-tooling","private":true,"scripts":{"db:start":"supabase start","db:test":"supabase test db","db:lint":"supabase db lint --local"},"devDependencies":{"supabase":"2.122.0"}}

@@ -1,0 +1,324 @@
+:root {
+  --quest-ink: #233b32;
+  --quest-muted: #546358;
+  --quest-accent: #285645;
+  --quest-accent-hover: #1a3b30;
+  --quest-canvas: #f3efe3;
+  --quest-surface: #fffdf5;
+  --quest-soft: #e7ece1;
+  --quest-selected: #dce7d9;
+  --quest-border: #d7ccaf;
+  --quest-control-border: #8a8b74;
+  --quest-focus: #245f53;
+  --quest-danger: #943928;
+  --quest-error-bg: #fbeae1;
+  --brass: #80551f;
+  --heading: Baskervville, Georgia, serif;
+  --world: url('/storybook-world.webp');
+  font:
+    16px/1.55 'Source Sans 3 Variable',
+    system-ui,
+    sans-serif;
+  color: var(--quest-ink);
+  background: var(--quest-canvas);
+  color-scheme: light;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+a {
+  color: var(--quest-accent);
+  text-underline-offset: 0.22em;
+}
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+button,
+summary {
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+:focus-visible {
+  outline: 3px solid var(--quest-focus);
+  outline-offset: 3px;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0 0 0.65em;
+  overflow-wrap: anywhere;
+}
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 400;
+  line-height: 1.06;
+}
+h1 {
+  font-size: clamp(2.25rem, 4vw, 3.65rem);
+}
+h2 {
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+}
+h3 {
+  font-size: 1.1rem;
+}
+.eyebrow,
+.nb-label {
+  font:
+    700 0.76rem/1.4 'Source Sans 3 Variable',
+    sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+button,
+.button {
+  border: 1px solid var(--quest-border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  min-height: 44px;
+  background: var(--quest-surface);
+  color: var(--quest-ink);
+  transition:
+    background-color 0.16s,
+    transform 0.16s;
+}
+button:hover:not(:disabled),
+.secondary.button:hover {
+  background: var(--quest-soft);
+}
+button:active:not(:disabled),
+.button:active {
+  transform: translateY(2px);
+}
+.button,
+button.nb-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  color: white;
+  background: var(--quest-accent);
+  border-color: var(--quest-accent-hover);
+  box-shadow: 0 3px 0 var(--quest-accent-hover);
+}
+.button:hover:not(:disabled),
+button.nb-primary:hover:not(:disabled) {
+  background: var(--quest-accent-hover);
+}
+.secondary.button {
+  background: var(--quest-surface);
+  color: var(--quest-ink);
+  box-shadow: none;
+}
+input:not([type='file'], [type='checkbox'], [type='radio']),
+textarea,
+select {
+  min-width: 0;
+  min-height: 44px;
+  width: 100%;
+  border: 1px solid var(--quest-control-border);
+  border-radius: 8px;
+  padding: 8px 11px;
+  background: var(--quest-surface);
+  color: var(--quest-ink);
+}
+input[type='checkbox'] {
+  accent-color: var(--quest-accent);
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+.card {
+  background: var(--quest-surface);
+  border: 1px solid var(--quest-border);
+  border-radius: 12px;
+  padding: clamp(18px, 4vw, 32px);
+}
+.muted,
+.nb-muted,
+.page-heading > div > p:not(.eyebrow) {
+  color: var(--quest-muted);
+}
+.error,
+[role='alert'] {
+  color: var(--quest-danger);
+}
+.auth-page {
+  display: grid;
+  grid-template-columns: 1.08fr 1fr;
+  min-height: 100svh;
+}
+.auth-landscape {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: clamp(22px, 4vw, 60px);
+  background:
+    linear-gradient(0deg, #132e25f2, #132e25c9 43%, transparent 68%),
+    var(--world) 62% center / cover #ddd4ab;
+}
+.auth-landscape .nb-brand {
+  background: var(--quest-surface);
+  padding: 8px 16px 8px 8px;
+  border-radius: 8px;
+}
+.auth-story {
+  color: white;
+  max-width: 12ch;
+  font: clamp(2.8rem, 6vw, 6rem)/0.98 var(--heading);
+}
+.auth-story > p:last-child {
+  margin-bottom: 0;
+}
+.auth-story .eyebrow {
+  color: #ffdf9f;
+  margin-bottom: 20px;
+}
+.auth-form-panel {
+  align-self: center;
+  width: min(100%, 530px);
+  justify-self: center;
+  padding: clamp(22px, 5vw, 60px);
+}
+.auth-form-panel .card {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.auth-form-panel .page-heading {
+  margin-bottom: 24px;
+}
+.auth-fields {
+  display: grid;
+  min-width: 0;
+  gap: 15px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.auth-fields label {
+  display: grid;
+  gap: 5px;
+  font-weight: 600;
+}
+.auth-fields p {
+  margin: 0;
+}
+.auth-form-panel .card > p {
+  margin: 24px 0 0;
+}
+.player-journal {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 48px);
+}
+.journal-cover {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 10px;
+  border: 1px solid var(--quest-border);
+  border-radius: 12px 12px 0 0;
+  padding: clamp(20px, 5vw, 44px);
+  background:
+    linear-gradient(90deg, #fff9e9 25%, #fff9e9d9 55%, transparent),
+    var(--world) center 52% / cover #e1d6ab;
+}
+.player-journal .card {
+  border-radius: 0 0 12px 12px;
+  border-top: 0;
+}
+.journal-explorer {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #fff9e9;
+  border: 2px solid #ba9555;
+}
+.journal-explorer svg {
+  width: 32px;
+  height: 46px;
+}
+.journal-xp {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 2rem var(--heading);
+  color: var(--brass);
+}
+.badge {
+  display: inline-block;
+  font-size: 0.85rem;
+  background: var(--quest-soft);
+  padding: 3px 9px;
+  border-radius: 5px;
+  margin-bottom: 12px;
+}
+.journal-entries {
+  list-style: none;
+  padding: 0;
+}
+.journal-entries a {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--quest-border);
+  overflow-wrap: anywhere;
+}
+.journal-entries strong {
+  white-space: nowrap;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+@media (max-width: 700px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+    align-content: start;
+  }
+  .auth-landscape {
+    min-height: 210px;
+    gap: 20px;
+    background-position:
+      center,
+      50% 58%;
+  }
+  .auth-story {
+    font-size: 2.5rem;
+    max-width: 16ch;
+  }
+  .auth-story .eyebrow {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

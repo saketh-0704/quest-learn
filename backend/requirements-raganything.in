@@ -1,0 +1,2 @@
+# Install only into the isolated RAG environment; see docs/RAG_ANYTHING.md.
+raganything==1.4.4

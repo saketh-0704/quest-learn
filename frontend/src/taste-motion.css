@@ -1,0 +1,37 @@
+:root {
+  --m-in: 150ms;
+  --m-out: 120ms;
+  --m-press: 90ms;
+  --m-panel: 200ms;
+  --m-slide: 240ms;
+  --m-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --m-ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn {
+  position: relative;
+  transition:
+    background-color var(--m-out) var(--m-ease),
+    transform var(--m-press) var(--m-ease);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn:active:not(:disabled) {
+    transform: translateY(1px) scale(0.985);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .btn:hover:not(:disabled, :active) {
+    transform: translateY(-1px);
+  }
+  .card {
+    transition:
+      transform var(--m-out) var(--m-ease),
+      box-shadow var(--m-out) var(--m-ease);
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px -18px rgb(0 0 0 / 20%);
+  }
+}

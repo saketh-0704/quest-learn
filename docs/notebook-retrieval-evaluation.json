@@ -1,0 +1,20 @@
+{
+  "fixture": "cedar.pdf (two pages)",
+  "legacy_naive_mode": {
+    "books": true,
+    "days": true,
+    "late_fee": true,
+    "unknown_mayor": true
+  },
+  "chunk_vector_retrieval": {
+    "books": true,
+    "days": true,
+    "late_fee": true,
+    "unknown_mayor": true
+  },
+  "source_pages": [
+    1,
+    2
+  ],
+  "limitation": "One controlled fixture. Does not establish general retrieval equivalence; legacy RAGAnything retained."
+}

@@ -1,0 +1,246 @@
+.trail-mission.observatory-finale {
+  --observatory-night: #102222;
+  --observatory-gold: #e8c489;
+  background: var(--observatory-night);
+  border: 1px solid #526858;
+  color: var(--quest-surface);
+  padding: clamp(12px, 2.5vw, 28px);
+}
+
+.observatory-heading .nb-label,
+.observatory-scene .nb-label {
+  color: var(--observatory-gold);
+}
+
+.observatory-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 12px;
+  scroll-margin-block-start: 1rem;
+}
+
+.observatory-scene,
+.observatory-panel {
+  border-radius: 10px;
+}
+
+.observatory-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #526858;
+  background: var(--observatory-night);
+}
+
+.observatory-art,
+.observatory-art > div,
+.observatory-art::after {
+  position: absolute;
+  inset: 0;
+}
+
+.observatory-art {
+  z-index: -1;
+}
+
+.observatory-art::after {
+  content: '';
+  background: linear-gradient(
+    180deg,
+    #102222eb,
+    #1022226b 27%,
+    transparent 62%,
+    #102222d9
+  );
+}
+
+.observatory-exterior {
+  background: var(--world) 100% 36% / cover no-repeat;
+  transform-origin: 100% 18%;
+}
+
+.observatory-scene[data-entered='true'] .observatory-exterior {
+  animation: observatory-approach 2.65s var(--m-ease-enter) both;
+}
+
+.observatory-interior {
+  background: url('/observatory-interior.avif') 56% center / cover no-repeat;
+  opacity: 0;
+}
+
+.observatory-scene[data-entered='true'] .observatory-interior {
+  opacity: 1;
+  animation: observatory-arrival 1.4s var(--m-ease-enter) 1.25s both;
+}
+
+@keyframes observatory-approach {
+  54% {
+    transform: scale(3.15);
+    filter: brightness(0.62);
+  }
+  to {
+    transform: scale(4.2);
+    filter: brightness(0.38);
+  }
+}
+
+@keyframes observatory-arrival {
+  from {
+    opacity: 0;
+    transform: scale(1.12) translateY(3%);
+  }
+}
+
+.observatory-caption,
+.observatory-plate {
+  padding: 14px clamp(12px, 2.5vw, 24px);
+}
+
+.observatory-caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.observatory-caption p {
+  margin: 0;
+}
+
+.observatory-plate {
+  margin-top: auto;
+  background: linear-gradient(0deg, #102222f5, #102222a6);
+}
+
+.observatory-plate h3 {
+  font: 400 clamp(1.5rem, 3vw, 2.25rem)/1.1 var(--heading);
+}
+
+.observatory-sky {
+  width: min(64%, 288px);
+  margin-inline: auto;
+  perspective: 650px;
+}
+
+.observatory-scene[data-entered='true'] .observatory-sky {
+  margin-inline-start: 10%;
+  width: min(52%, 260px);
+}
+
+.observatory-chart {
+  display: block;
+  width: 100%;
+  transform: rotateX(10deg) rotateY(-9deg);
+}
+
+.observatory-chart-grid {
+  stroke: #c4d9cf;
+  opacity: 0.34;
+}
+
+.observatory-chart polyline {
+  stroke: var(--observatory-gold);
+  stroke-dasharray: 4 5;
+  opacity: 0.48;
+}
+
+.observatory-chart[data-revealed='true'] {
+  animation: observatory-reveal 850ms var(--m-ease-enter) both;
+}
+
+.observatory-chart[data-revealed='true'] polyline {
+  stroke-dasharray: none;
+  opacity: 1;
+}
+
+@keyframes observatory-reveal {
+  from {
+    transform: translateZ(-145px) rotateX(52deg) rotateY(-34deg);
+    opacity: 0.24;
+  }
+}
+
+.observatory-star {
+  fill: #293f3f;
+  stroke: #becfc5;
+  transition:
+    fill var(--m-slide),
+    filter var(--m-slide);
+}
+
+.observatory-star[data-lit='true'] {
+  fill: #ffe5aa;
+  stroke: #fff3d4;
+  filter: drop-shadow(0 0 6px #ffd77d);
+}
+
+.observatory-sectors {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px;
+  font-size: 0.76rem;
+}
+
+.observatory-sectors li {
+  border-top: 2px solid #9bac9f;
+  padding-top: 4px;
+  overflow-wrap: anywhere;
+}
+
+.observatory-sectors li:is([data-revealed='true'], [aria-current='step']) {
+  border-color: var(--observatory-gold);
+  color: #ffe5aa;
+}
+
+.observatory-replay {
+  color: var(--quest-surface);
+  background: var(--observatory-night);
+  border-color: #91a296;
+}
+
+.observatory-replay:hover:not(:disabled) {
+  background: var(--quest-accent);
+}
+
+.observatory-panel {
+  min-width: 0;
+  padding: clamp(14px, 2.5vw, 28px);
+  background: #f9f1dc;
+  color: var(--quest-ink);
+  align-content: center;
+}
+
+.observatory-panel > h3 {
+  font: 400 clamp(1.65rem, 3vw, 2.4rem)/1.1 var(--heading);
+}
+
+.observatory-panel .practice-quiz > button + button {
+  margin: 8px 0 0 8px;
+}
+
+.observatory-reveal-note {
+  display: block;
+  margin-top: 6px;
+  color: var(--quest-accent);
+}
+
+@media (max-width: 1050px) {
+  .observatory-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .observatory-scene {
+    min-height: 320px;
+  }
+  .observatory-sky {
+    width: min(55%, 220px);
+  }
+}
