@@ -1,4 +1,4 @@
-# GeminiNotebook
+# Quest Learn
 
 An authenticated document learning workspace built on the existing React/TypeScript,
 FastAPI, Supabase Auth/Storage/Postgres, and Gemini integrations.
@@ -119,7 +119,7 @@ backend/.venv/Scripts/python backend/scripts/browser_notebook_smoke.py
 It creates a disposable account, uploads a real PDF, makes four Gemini requests,
 checks citations and refresh persistence, then removes its own test data.
 
-See [architecture inspection](docs/GEMININOTEBOOK.md) and
+See [architecture inspection](docs/QUEST_LEARN.md) and
 [retrieval fixture results](docs/notebook-retrieval-evaluation.json).
 The old RAGAnything implementation is retained: its graph construction is unused
 by its `naive` query mode, but a small fixture is not proof of broad equivalence.

@@ -23,7 +23,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             application.state.auth_client = client
             yield
 
-    application = FastAPI(title="GeminiNotebook API", version="0.2.0", lifespan=lifespan)
+    application = FastAPI(title="Quest Learn API", version="0.2.0", lifespan=lifespan)
     application.state.settings = settings
     application.add_middleware(
         CORSMiddleware, allow_origins=settings.cors_origins,

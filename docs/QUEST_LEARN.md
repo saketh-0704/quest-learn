@@ -1,4 +1,4 @@
-# GeminiNotebook implementation record
+# Quest Learn implementation record
 
 ## Initial inspection
 

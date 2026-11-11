@@ -108,7 +108,7 @@ if __name__ == '__main__':
     if len(sys.argv) == 4 and sys.argv[1] == '--job':
         print(json.dumps(child_main(settings, sys.argv[2], sys.argv[3])))
     else:
-        print('GeminiNotebook worker started (one database-coordinated slot).', flush=True)
+        print('Quest Learn worker started (one database-coordinated slot).', flush=True)
         while True:
             try:
                 if not run_once(settings):
