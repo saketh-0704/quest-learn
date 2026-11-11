@@ -12,6 +12,8 @@ from app.retrieval.service import retrieve_document, RetrievalError
 from app.retrieval.models import QueryEmbedding
 
 router = APIRouter(prefix='/notebooks', tags=['notebooks'])
+DOCUMENT_FIELDS = ('id, filename, kind, status, phase, completed_chunks, total_chunks, '
+                   'failure_reason, warnings, materials, learned, page_count')
 
 
 class Title(BaseModel):
@@ -73,7 +75,7 @@ def get_notebook(notebook_id: UUID, request: Request, user: VerifiedUser):
     # shortcut: full history is appropriate for small notebooks; paginate before large-scale rollout.
     with database(request.app.state.settings) as conn:
         notebook = owned_notebook(conn, notebook_id, user.id)
-        documents = conn.execute('select * from public.documents where notebook_id=%s and user_id=%s order by created_at',
+        documents = conn.execute(f'select {DOCUMENT_FIELDS} from public.documents where notebook_id=%s and user_id=%s order by created_at',
                                  (notebook_id, user.id)).fetchall()
         turns = conn.execute('select * from public.notebook_turns where notebook_id=%s and user_id=%s order by created_at,id',
                              (notebook_id, user.id)).fetchall()
@@ -114,7 +116,7 @@ def save_upload(settings, notebook_id, user_id, filename, content_type, data):
         conn.commit()
         owned_notebook(conn, notebook_id, user_id, lock=True)
         storage(settings, 'POST', '/' + row['storage_path'], content=data, headers={'Content-Type': content_type})
-        return conn.execute("update public.documents set status='uploaded',phase='queued',error_code=null,failure_reason=null where id=%s and user_id=%s returning *",
+        return conn.execute(f"update public.documents set status='uploaded',phase='queued',error_code=null,failure_reason=null where id=%s and user_id=%s returning {DOCUMENT_FIELDS}",
                             (row['id'], user_id)).fetchone()
 
 

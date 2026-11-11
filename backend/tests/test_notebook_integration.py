@@ -95,6 +95,8 @@ def fake_models(monkeypatch):
 def test_persistence_ownership_and_private_files(context):
     settings,users,client,notebook=context
     document=upload(context)
+    internal_fields={'job_token','storage_path','lease_until'}
+    assert internal_fields.isdisjoint(document)
     other=users[1]['headers']; owner=users[0]['headers']
     for method,path,kwargs in [('get',f'/{notebook}',{}),('patch',f'/{notebook}',{'json':{'title':'stolen'}}),('delete',f'/{notebook}',{}),('get',f"/sources/{document['id']}/file",{}),('post',f"/sources/{document['id']}/cancel",{}),('post',f"/sources/{document['id']}/retry",{}),('patch',f"/sources/{document['id']}/progress",{'json':{'learned':True}}),('post',f'/{notebook}/documents?filename=stolen.txt',{'content':b'stolen'}),('post',f'/{notebook}/questions',{'json':{'id':str(uuid4()),'question':'Read secrets','document_ids':[document['id']]}})]:
         assert getattr(client,method)('/api/notebooks'+path,headers=other,**kwargs).status_code==404
@@ -103,11 +105,15 @@ def test_persistence_ownership_and_private_files(context):
         restored=another_device.get('/api/notebooks/'+notebook,headers=owner).json()
         assert restored['notebook']['title']=='Renamed notebook'
         assert restored['documents'][0]['id']==document['id']
+        assert internal_fields.isdisjoint(restored['documents'][0])
     base=str(settings.supabase_url).rstrip('/')
     public={'apikey':settings.supabase_publishable_key.get_secret_value()}
     response=httpx.get(base+'/rest/v1/notebooks',headers={**public,**other},params={'id':'eq.'+notebook},timeout=15)
     assert response.status_code==200 and response.json()==[]
-    path='/storage/v1/object/authenticated/study-material/'+document['storage_path']
+    with database(settings) as conn:
+        row=conn.execute('select storage_path from public.documents where id=%s and user_id=%s',
+                         (document['id'],users[0]['id'])).fetchone()
+    path='/storage/v1/object/authenticated/study-material/'+row['storage_path']
     assert httpx.get(base+path,headers={**public,**other},timeout=15).status_code!=200
     assert client.get('/api/notebooks/sources/'+document['id']+'/file',headers=owner).status_code==200
 

@@ -6,6 +6,10 @@ __pycache__/
 .env
 .env.*
 !.env.example
+*.pem
+*.key
+*.p12
+*.pfx
 *.egg-info/
 *.tsbuildinfo
 test-results/
